@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TrendingUp, TrendingDown, Utensils, Shield, Dumbbell, Users, Star, Eye } from "lucide-react"
+import Link from "next/link"
 
 const mealPlans = [
   // Official Content
@@ -281,7 +282,9 @@ export default function MealPlansPage() {
                         )}
                       </div>
 
-                      <Button className="w-full">View Meal Plan</Button>
+                      <Button className="w-full">
+                        <Link href={`/meal-plans/${plan.type}/${plan.id}`}>View Meal Plan</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -353,7 +356,9 @@ export default function MealPlansPage() {
                           </Badge>
                         )}
                       </div>
-                      <Button className="w-full">View Meal Plan</Button>
+                      <Button className="w-full">
+                        <Link href={`/meal-plans/${plan.type}/${plan.id}`}>View Meal Plan</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -425,7 +430,9 @@ export default function MealPlansPage() {
                           </Badge>
                         )}
                       </div>
-                      <Button className="w-full">View Meal Plan</Button>
+                      <Button className="w-full">
+                        <Link href={`/meal-plans/${plan.type}/${plan.id}`}>View Meal Plan</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -497,7 +504,9 @@ export default function MealPlansPage() {
                           </Badge>
                         )}
                       </div>
-                      <Button className="w-full">View Meal Plan</Button>
+                      <Button className="w-full">
+                        <Link href={`/meal-plans/${plan.type}/${plan.id}`}>View Meal Plan</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}

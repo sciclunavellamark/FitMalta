@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dumbbell, Clock, Calendar, Target, Shield, Users, Star, Eye } from "lucide-react"
+import Link from "next/link"
 
 const workoutPrograms = [
   // Official Content
@@ -290,7 +291,9 @@ export default function WorkoutsPage() {
                         </div>
                       </div>
 
-                      <Button className="w-full">View Program</Button>
+                      <Button className="w-full">
+                        <Link href={`/workouts/${program.category}/${program.id}`}>View Program</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -364,7 +367,9 @@ export default function WorkoutsPage() {
                           )}
                         </div>
                       </div>
-                      <Button className="w-full">View Program</Button>
+                      <Button className="w-full">
+                        <Link href={`/workouts/${program.category}/${program.id}`}>View Program</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -438,7 +443,9 @@ export default function WorkoutsPage() {
                           )}
                         </div>
                       </div>
-                      <Button className="w-full">View Program</Button>
+                      <Button className="w-full">
+                        <Link href={`/workouts/${program.category}/${program.id}`}>View Program</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -512,7 +519,9 @@ export default function WorkoutsPage() {
                           )}
                         </div>
                       </div>
-                      <Button className="w-full">View Program</Button>
+                      <Button className="w-full">
+                        <Link href={`/workouts/${program.category}/${program.id}`}>View Program</Link>
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}

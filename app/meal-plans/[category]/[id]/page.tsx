@@ -159,12 +159,16 @@ export default function MealPlanDetailPage() {
 
   if (!mealPlan) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="bg-background py-12">
         <Navigation />
-        <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold mb-4">Meal Plan Not Found</h1>
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-4">Meal Plan Not Found</h1>
+          <p className="text-muted-foreground mb-6">The meal plan you're looking for doesn't exist.</p>
           <Link href="/meal-plans">
-            <Button>Back to Meal Plans</Button>
+            <Button>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Meal Plans
+            </Button>
           </Link>
         </div>
       </div>
@@ -172,251 +176,263 @@ export default function MealPlanDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background py-12">
       <Navigation />
 
-      <main className="py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-8">
-            <Link href={`/meal-plans/${category}`}>
-              <Button variant="ghost" className="mb-4">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to {category === "bulk" ? "Bulking" : "Cutting"} Plans
-              </Button>
-            </Link>
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Back Button */}
+        <div className="mb-6">
+          <Link href="/meal-plans">
+            <Button variant="ghost">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Meal Plans
+            </Button>
+          </Link>
+        </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div>
-                <div className="aspect-video overflow-hidden rounded-lg mb-4">
-                  <img
-                    src={mealPlan.image || "/placeholder.svg"}
-                    alt={mealPlan.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-start justify-between">
-                  <h1 className="text-3xl md:text-4xl font-bold text-foreground">{mealPlan.title}</h1>
-                  <Button variant="outline" size="icon">
-                    <Heart className="h-4 w-4" />
-                  </Button>
-                </div>
-
-                <p className="text-lg text-muted-foreground">{mealPlan.description}</p>
-
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium">{mealPlan.rating}</span>
-                    <span className="text-muted-foreground">({mealPlan.reviews} reviews)</span>
+        {/* Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          <div className="lg:col-span-2">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={mealPlan.image || "/placeholder.svg"}
+                      alt={mealPlan.title}
+                      className="w-32 h-32 rounded-lg object-cover"
+                    />
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">{mealPlan.duration}</span>
+
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h1 className="text-3xl font-bold text-foreground mb-2">{mealPlan.title}</h1>
+                        <p className="text-lg text-muted-foreground mb-2">{mealPlan.description}</p>
+                        <div className="flex items-center gap-1 mb-2">
+                          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{mealPlan.rating}</span>
+                          <span className="text-muted-foreground">({mealPlan.reviews} reviews)</span>
+                        </div>
+                      </div>
+                      <Badge variant="secondary" className="text-lg px-3 py-1">
+                        {mealPlan.calories} cal
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Clock className="w-4 h-4" />
+                        {mealPlan.duration}
+                      </div>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <ChefHat className="w-4 h-4" />
+                        {mealPlan.difficulty}
+                      </div>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Users className="w-4 h-4" />
+                        {mealPlan.approach} approach
+                      </div>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Star className="w-4 h-4" />
+                        {mealPlan.protein}g protein
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {mealPlan.tags.map((tag, index) => (
+                        <Badge key={index} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {mealPlan.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
+          {/* Nutrition Card */}
+          <div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Daily Nutrition</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Button className="w-full">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Start Plan
+                </Button>
+                <Button variant="outline" className="w-full bg-transparent">
+                  <Heart className="w-4 h-4 mr-2" />
+                  Save Plan
+                </Button>
+                <div className="pt-4 border-t space-y-2">
+                  <div className="grid grid-cols-4 gap-2 text-center text-sm">
+                    <div>
+                      <div className="font-bold text-primary">{mealPlan.calories}</div>
+                      <div className="text-xs text-muted-foreground">Calories</div>
+                    </div>
+                    <div>
+                      <div className="font-bold text-primary">{mealPlan.protein}g</div>
+                      <div className="text-xs text-muted-foreground">Protein</div>
+                    </div>
+                    <div>
+                      <div className="font-bold text-primary">{mealPlan.carbs}g</div>
+                      <div className="text-xs text-muted-foreground">Carbs</div>
+                    </div>
+                    <div>
+                      <div className="font-bold text-primary">{mealPlan.fat}g</div>
+                      <div className="text-xs text-muted-foreground">Fat</div>
+                    </div>
+                  </div>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
-                {/* Nutrition Summary */}
-                <Card>
+        {/* Tabs */}
+        <Tabs defaultValue="overview">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="meals">Daily Meals</TabsTrigger>
+            <TabsTrigger value="recipes">Recipes</TabsTrigger>
+            <TabsTrigger value="shopping">Shopping List</TabsTrigger>
+            <TabsTrigger value="progress">Progress</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Plan Overview</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">{mealPlan.overview}</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="meals" className="mt-6">
+            <div className="space-y-4">
+              {mealPlan.dailyMeals.map((meal, index) => (
+                <Card key={index}>
                   <CardHeader>
-                    <CardTitle className="text-lg">Daily Nutrition</CardTitle>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{meal.meal}</CardTitle>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span>{meal.time}</span>
+                        <span>{meal.calories} cal</span>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-4 gap-4 text-center">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {meal.items.map((item, itemIndex) => (
+                        <div key={itemIndex} className="p-2 bg-muted/30 rounded text-sm">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="recipes" className="mt-6">
+            <div className="space-y-6">
+              {mealPlan.recipes.map((recipe) => (
+                <Card key={recipe.id}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
                       <div>
-                        <div className="text-2xl font-bold text-primary">{mealPlan.calories}</div>
-                        <div className="text-sm text-muted-foreground">Calories</div>
+                        <CardTitle className="text-xl">{recipe.name}</CardTitle>
+                        <CardDescription className="mt-2">
+                          Prep: {recipe.prepTime} • Cook: {recipe.cookTime} • Serves: {recipe.servings} •{" "}
+                          {recipe.calories} cal
+                        </CardDescription>
+                      </div>
+                      <Button variant="outline" size="sm">
+                        <Play className="h-4 w-4 mr-2" />
+                        Watch Video
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold mb-3">Ingredients</h4>
+                        <ul className="space-y-2">
+                          {recipe.ingredients.map((ingredient, index) => (
+                            <li key={index} className="text-sm text-muted-foreground">
+                              • {ingredient}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-primary">{mealPlan.protein}g</div>
-                        <div className="text-sm text-muted-foreground">Protein</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{mealPlan.carbs}g</div>
-                        <div className="text-sm text-muted-foreground">Carbs</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{mealPlan.fat}g</div>
-                        <div className="text-sm text-muted-foreground">Fat</div>
+                        <h4 className="font-semibold mb-3">Instructions</h4>
+                        <ol className="space-y-2">
+                          {recipe.instructions.map((instruction, index) => (
+                            <li key={index} className="text-sm text-muted-foreground">
+                              {index + 1}. {instruction}
+                            </li>
+                          ))}
+                        </ol>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              ))}
             </div>
-          </div>
+          </TabsContent>
 
-          {/* Tabs Content */}
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="meals">Daily Meals</TabsTrigger>
-              <TabsTrigger value="recipes">Recipes</TabsTrigger>
-              <TabsTrigger value="shopping">Shopping List</TabsTrigger>
-              <TabsTrigger value="progress">Progress</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="overview" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Plan Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">{mealPlan.overview}</p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <ChefHat className="h-8 w-8 mx-auto mb-2 text-primary" />
-                      <div className="font-semibold">Difficulty</div>
-                      <div className="text-sm text-muted-foreground capitalize">{mealPlan.difficulty}</div>
+          <TabsContent value="shopping" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ShoppingCart className="h-5 w-5" />
+                  Weekly Shopping List
+                </CardTitle>
+                <CardDescription>Everything you need for one week of this meal plan</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {Object.entries(mealPlan.shoppingList).map(([category, items]) => (
+                  <div key={category}>
+                    <h4 className="font-semibold mb-3 capitalize">{category}</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                      {items.map((item, index) => (
+                        <div key={index} className="flex items-center gap-2 p-2 bg-muted/30 rounded">
+                          <input type="checkbox" className="rounded" />
+                          <span className="text-sm">{item}</span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <Calendar className="h-8 w-8 mx-auto mb-2 text-primary" />
-                      <div className="font-semibold">Duration</div>
-                      <div className="text-sm text-muted-foreground">{mealPlan.duration}</div>
-                    </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <Users className="h-8 w-8 mx-auto mb-2 text-primary" />
-                      <div className="font-semibold">Approach</div>
-                      <div className="text-sm text-muted-foreground capitalize">{mealPlan.approach}</div>
-                    </div>
+                    {category !== "other" && <Separator className="mt-4" />}
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="meals" className="mt-6">
-              <div className="space-y-4">
-                {mealPlan.dailyMeals.map((meal, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{meal.meal}</CardTitle>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span>{meal.time}</span>
-                          <span>{meal.calories} cal</span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                        {meal.items.map((item, itemIndex) => (
-                          <div key={itemIndex} className="p-2 bg-muted/30 rounded text-sm">
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
                 ))}
-              </div>
-            </TabsContent>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            <TabsContent value="recipes" className="mt-6">
-              <div className="space-y-6">
-                {mealPlan.recipes.map((recipe) => (
-                  <Card key={recipe.id}>
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-xl">{recipe.name}</CardTitle>
-                          <CardDescription className="mt-2">
-                            Prep: {recipe.prepTime} • Cook: {recipe.cookTime} • Serves: {recipe.servings} •{" "}
-                            {recipe.calories} cal
-                          </CardDescription>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          <Play className="h-4 w-4 mr-2" />
-                          Watch Video
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="font-semibold mb-3">Ingredients</h4>
-                          <ul className="space-y-2">
-                            {recipe.ingredients.map((ingredient, index) => (
-                              <li key={index} className="text-sm text-muted-foreground">
-                                • {ingredient}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-3">Instructions</h4>
-                          <ol className="space-y-2">
-                            {recipe.instructions.map((instruction, index) => (
-                              <li key={index} className="text-sm text-muted-foreground">
-                                {index + 1}. {instruction}
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="shopping" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ShoppingCart className="h-5 w-5" />
-                    Weekly Shopping List
-                  </CardTitle>
-                  <CardDescription>Everything you need for one week of this meal plan</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {Object.entries(mealPlan.shoppingList).map(([category, items]) => (
-                    <div key={category}>
-                      <h4 className="font-semibold mb-3 capitalize">{category}</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                        {items.map((item, index) => (
-                          <div key={index} className="flex items-center gap-2 p-2 bg-muted/30 rounded">
-                            <input type="checkbox" className="rounded" />
-                            <span className="text-sm">{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                      {category !== "other" && <Separator className="mt-4" />}
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="progress" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Track Your Progress</CardTitle>
-                  <CardDescription>Monitor your results and make adjustments as needed</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-8 text-muted-foreground">
-                    <Calendar className="h-12 w-12 mx-auto mb-4" />
-                    <p>Progress tracking features coming soon!</p>
-                    <p className="text-sm">Track weight, measurements, and photos</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </main>
+          <TabsContent value="progress" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Track Your Progress</CardTitle>
+                <CardDescription>Monitor your results and make adjustments as needed</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  <Calendar className="h-12 w-12 mx-auto mb-4" />
+                  <p>Progress tracking features coming soon!</p>
+                  <p className="text-sm">Track weight, measurements, and photos</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }
