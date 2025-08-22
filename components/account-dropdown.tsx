@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { User, Settings, Shield, LogOut, ShoppingBag, ChevronDown, Utensils, Dumbbell } from "lucide-react"
+import { User, Settings, Shield, LogOut, ShoppingBag, ChevronDown, Utensils, Dumbbell, BookOpen } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 
 export function AccountDropdown() {
@@ -64,6 +64,13 @@ export function AccountDropdown() {
           <Link href="/account/purchases" className="flex items-center">
             <ShoppingBag className="mr-2 h-4 w-4" />
             My Purchases
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild>
+          <Link href="/account/my-content" className="flex items-center">
+            <BookOpen className="mr-2 h-4 w-4" />
+            My Content
           </Link>
         </DropdownMenuItem>
 

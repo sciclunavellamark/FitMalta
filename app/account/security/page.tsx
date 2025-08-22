@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { ArrowLeft, Save, Shield, UserCheck, Building, Smartphone, Key } from "lucide-react"
+import { Save, Shield, UserCheck, Building, Smartphone, Key } from "lucide-react"
 import Link from "next/link"
 import AccountLayout from "@/components/account-layout"
 
@@ -56,13 +56,12 @@ export default function SecurityPage() {
   return (
     <AccountLayout>
       <div className="space-y-6">
-        <div className="mb-6">
-          <Link href="/account">
-            <Button variant="ghost" className="mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Account
-            </Button>
-          </Link>
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4">
+            <Shield className="h-8 w-8 text-primary" />
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground">Security</h1>
+          </div>
+          <p className="text-lg text-muted-foreground">Manage your account security settings and password</p>
         </div>
 
         {/* Password Security Card */}

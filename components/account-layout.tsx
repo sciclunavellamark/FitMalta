@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import { Navigation } from "@/components/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -42,39 +43,45 @@ export default function AccountLayout({ children }: AccountLayoutProps) {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
-            <Card>
-              <CardContent className="p-6">
-                <div className="space-y-1 mb-6">
-                  <h2 className="text-xl font-semibold">{user.name}</h2>
-                  <p className="text-sm text-muted-foreground capitalize">{user.userType.replace("_", " ")} Account</p>
-                </div>
+    <div className="min-h-screen bg-background">
+      <Navigation />
 
-                <nav className="space-y-2">
-                  {navigationItems.map((item) => {
-                    const Icon = item.icon
-                    const isActive = pathname === item.href
+      <main className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-1">
+              <Card>
+                <CardContent className="p-6">
+                  <div className="space-y-1 mb-6">
+                    <h2 className="text-xl font-semibold">{user.name}</h2>
+                    <p className="text-sm text-muted-foreground capitalize">
+                      {user.userType.replace("_", " ")} Account
+                    </p>
+                  </div>
 
-                    return (
-                      <Link key={item.href} href={item.href}>
-                        <Button variant={isActive ? "default" : "ghost"} className="w-full justify-start">
-                          <Icon className="w-4 h-4 mr-2" />
-                          {item.label}
-                        </Button>
-                      </Link>
-                    )
-                  })}
-                </nav>
-              </CardContent>
-            </Card>
+                  <nav className="space-y-2">
+                    {navigationItems.map((item) => {
+                      const Icon = item.icon
+                      const isActive = pathname === item.href
+
+                      return (
+                        <Link key={item.href} href={item.href}>
+                          <Button variant={isActive ? "default" : "ghost"} className="w-full justify-start">
+                            <Icon className="w-4 h-4 mr-2" />
+                            {item.label}
+                          </Button>
+                        </Link>
+                      )
+                    })}
+                  </nav>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="lg:col-span-3">{children}</div>
           </div>
-
-          <div className="lg:col-span-3">{children}</div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

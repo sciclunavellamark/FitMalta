@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Bell, Eye, Palette, Save } from "lucide-react"
+import { Bell, Eye, Palette, Save, Settings } from "lucide-react"
 import AccountLayout from "@/components/account-layout"
 
 export default function SettingsPage() {
@@ -40,6 +40,14 @@ export default function SettingsPage() {
   return (
     <AccountLayout>
       <div className="space-y-6">
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4">
+            <Settings className="h-8 w-8 text-primary" />
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground">Settings</h1>
+          </div>
+          <p className="text-lg text-muted-foreground">Customize your app preferences and privacy settings</p>
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

@@ -99,13 +99,18 @@ export default function PurchasesPage() {
   return (
     <AccountLayout>
       <div className="space-y-6">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">🛒 My Purchases</h1>
+          <p className="text-muted-foreground">View and manage your purchased content and training sessions</p>
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Receipt className="w-5 h-5" />
-              My Purchases
+              Purchase Overview
             </CardTitle>
-            <CardDescription>View and manage your purchased content and sessions</CardDescription>
+            <CardDescription>Summary of your purchased content and sessions</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
